@@ -1,4 +1,9 @@
-# Prometheus and Grafana Setup on EKS
+
+
+
+
+
+<!-- # Prometheus and Grafana Setup on EKS
 
 This repository contains the configuration files required to deploy Prometheus and Grafana on an Amazon EKS (Elastic Kubernetes Service) cluster for monitoring and visualizing metrics.
 
@@ -12,4 +17,16 @@ This repository contains the configuration files required to deploy Prometheus a
 - An EKS cluster up and running.
 - `kubectl` configured to interact with the EKS cluster.
 - `helm` installed for package management (optional for easier deployments).
+ -->
+[Heading IDs](#heading-ids)
+
+| Syntax      | Description | Test Text     |
+| :---        |    :----:   |          ---: |
+| Header      | Title       | Here's this   |
+| Paragraph   | Text        | And more      |
+
+| Syntax | Description |
+| --- | ---- |
+| Header | Title |
+| Paragraph | Text |
 
