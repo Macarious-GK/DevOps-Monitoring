@@ -1,5 +1,5 @@
 # Prometheus
-![Architecture](/fb/Prometheus_logo.png)
+![Architecture](/Images/Prometheus_logo.png)
 # Table of Contents
 - [Quick Overview](#quick-overview)
 - [Features](#features)
@@ -51,7 +51,7 @@
 8. ``Service Discovery``  
    - Automatically finds services to scrape in dynamic environments (e.g., Kubernetes).
 
-![Architecture](/fb/architecture.png)
+![Architecture](/Images/architecture.png)
 
 ## Prometheus Linux
 ### Installation 
