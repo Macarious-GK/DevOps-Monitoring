@@ -54,6 +54,12 @@
 ![Architecture](/Images/architecture.png)
 
 ## Prometheus Linux
+
+### Follow This Guide  
+
+For detailed instructions, You can follow this guide:  
+[*Prometheus Installation on Linux (Ubuntu)*](https://medium.com/@abdullah.eid.2604/prometheus-installation-on-linux-ubuntu-c4497e5154f6)
+
 ### Installation 
 ```bash
 sudo wget https://github.com/prometheus/prometheus/releases/download/v2.47.0/prometheus-2.47.0.linux-amd64.tar.gz
