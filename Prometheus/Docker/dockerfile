@@ -18,3 +18,21 @@ CMD [ "--config.file=/etc/prometheus/prometheus.yml"]
 
 
 
+# -------
+
+    # Use the official Alertmanager image as the base
+# FROM prom/alertmanager:latest
+
+# # Set the working directory
+# WORKDIR /etc/alertmanager
+
+# # Copy Alertmanager configuration file
+# COPY alertmanager.yml /etc/alertmanager/alertmanager.yml
+
+# # Expose Alertmanager default port
+# EXPOSE 9093
+
+# # Start Alertmanager
+# CMD [ "--config.file=/etc/alertmanager/alertmanager.yml" ]
+
+

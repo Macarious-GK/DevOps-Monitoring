@@ -109,6 +109,7 @@ sudo systemctl status prometheus
 
 3. **Copy Config File**:  
    `COPY prometheus.yml /etc/prometheus/prometheus.yml` copies your custom Prometheus configuration into the container.
+   `COPY alert_rules.yml /etc/prometheus/alert_rules.yml` copies your alert_rules configuration into the container.
 
 4. **Expose Port**:  
    `EXPOSE 9090` makes Prometheus' web UI accessible on port 9090.
