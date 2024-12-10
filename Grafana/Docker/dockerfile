@@ -1,0 +1,15 @@
+
+FROM grafana/grafana:latest
+
+# Copy provisioning files
+COPY dashboards.yaml /etc/grafana/provisioning/dashboards/
+COPY datasources.yaml /etc/grafana/provisioning/datasources/
+
+# Copy the Kubernetes dashboard
+COPY dashboards /var/lib/grafana/dashboards/
+
+# Expose the Grafana port
+EXPOSE 3000
+
+# Start Grafana
+CMD ["grafana-server", "--homepath=/usr/share/grafana", "--config=/etc/grafana/grafana.ini"]

@@ -60,47 +60,6 @@
 For detailed instructions, You can follow this guide:  
 [*Prometheus Installation on Linux (Ubuntu)*](https://medium.com/@abdullah.eid.2604/prometheus-installation-on-linux-ubuntu-c4497e5154f6)
 
-### Installation 
-```bash
-sudo wget https://github.com/prometheus/prometheus/releases/download/v2.47.0/prometheus-2.47.0.linux-amd64.tar.gz
-sudo tar vxf prometheus*.tar.gz
-sudo groupadd --system prometheus
-sudo useradd -s /sbin/nologin --system -g prometheus prometheus
-sudo mkdir /etc/prometheus
-sudo mkdir /var/lib/prometheus
-cd prometheus*/
-
-#Move the Binary Files
-sudo mv prometheus /usr/local/bin
-sudo mv promtool /usr/local/bin
-#Move other Files
-sudo mv console* /etc/prometheus
-sudo mv prometheus.yml /etc/prometheus
-
-sudo chown prometheus:prometheus /usr/local/bin/prometheus
-sudo chown prometheus:prometheus /usr/local/bin/promtool
-sudo chown prometheus:prometheus /etc/prometheus
-sudo chown -R prometheus:prometheus /etc/prometheus/consoles
-sudo chown -R prometheus:prometheus /etc/prometheus/console_libraries
-sudo chown -R prometheus:prometheus /var/lib/prometheus
-```
-
-
-### Configuration
-
-``` bash
-# You can copy the provided config or edit it
-
-# Path to Prometheus internal config /etc/prometheus/prometheus.yml
-sudo cp /Linux/prometheus.yml /etc/prometheus/prometheus.yml
-# Path to Prometheus Service config /etc/systemd/system/prometheus.service
-sudo cp /Linux/prometheus.service /etc/systemd/system/prometheus.service
-
-sudo systemctl daemon-reload
-sudo systemctl enable prometheus
-sudo systemctl start prometheus
-sudo systemctl status prometheus
-```
 
 
 ## Prometheus on Docker
@@ -108,20 +67,20 @@ sudo systemctl status prometheus
 ### Dockerfile Explanation
 
 1. **Base Image**:  
-   `FROM prom/prometheus:latest` uses the official Prometheus image as the base for the container.
+   - `FROM prom/prometheus:latest` uses the official Prometheus image as the base for the container.
 
 2. **Working Directory**:  
-   `WORKDIR /etc/prometheus` sets the working directory inside the container to `/etc/prometheus`.
+   - `WORKDIR /etc/prometheus` sets the working directory inside the container to `/etc/prometheus`.
 
 3. **Copy Config File**:  
-   `COPY prometheus.yml /etc/prometheus/prometheus.yml` copies your custom Prometheus configuration into the container.
-   `COPY alert_rules.yml /etc/prometheus/alert_rules.yml` copies your alert_rules configuration into the container.
+   - `COPY prometheus.yml /etc/prometheus/prometheus.yml` copies your custom Prometheus configuration into the container.
+   - `COPY alert_rules.yml /etc/prometheus/alert_rules.yml` copies your alert_rules configuration into the container.
 
 4. **Expose Port**:  
-   `EXPOSE 9090` makes Prometheus' web UI accessible on port 9090.
+   - `EXPOSE 9090` makes Prometheus' web UI accessible on port 9090.
 
 5. **CMD**:  
-   `CMD ["/bin/prometheus", "--config.file=/etc/prometheus/prometheus.yml"]` runs Prometheus with the specified configuration file.
+   - `CMD ["/bin/prometheus", "--config.file=/etc/prometheus/prometheus.yml"]` runs Prometheus with the specified configuration file.
 
 This Dockerfile sets up Prometheus with your custom settings and exposes the UI on port 9090.
 

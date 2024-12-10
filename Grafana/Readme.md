@@ -1,110 +1,43 @@
-# Monitoring system setup 
+# Grafana
+![Architecture](/Images/Grafana_logo.png)
 
-## Prometheus installation on Linux
-- This expose the Prometheus Dashboard "IP:9090"
+# Table of Contents
+- [Quick Overview](#quick-overview)
+- [Features](#features)
+- [Grafana Installation & Configuration on Linux](#grafana-linux)
+- [Grafana on Docker](#grafana-on-docker)
+- [Access Grafana](#access-grafana)
 
-```bash
-sudo wget https://github.com/prometheus/prometheus/releases/download/v2.47.0/prometheus-2.47.0.linux-amd64.tar.gz
-sudo tar vxf prometheus*.tar.gz
-sudo groupadd --system prometheus
-sudo useradd -s /sbin/nologin --system -g prometheus prometheus
-sudo mkdir /etc/prometheus
-sudo mkdir /var/lib/prometheus
-cd prometheus*/
+## Quick Overview
 
-#Move the Binary Files
-sudo mv prometheus /usr/local/bin
-sudo mv promtool /usr/local/bin
-#Move other Files
-sudo mv console* /etc/prometheus
-sudo mv prometheus.yml /etc/prometheus
+- `Grafana` is an open-source analytics and monitoring platform.  
+- Visualizes metrics, logs, and traces with customizable dashboards.  
+- Supports various data sources like `Prometheus`, `Elasticsearch`, and more.  
+- Widely used in `DevOps` for centralized monitoring and alerting.
 
-sudo chown prometheus:prometheus /usr/local/bin/prometheus
-sudo chown prometheus:prometheus /usr/local/bin/promtool
-sudo chown prometheus:prometheus /etc/prometheus
-sudo chown -R prometheus:prometheus /etc/prometheus/consoles
-sudo chown -R prometheus:prometheus /etc/prometheus/console_libraries
-sudo chown -R prometheus:prometheus /var/lib/prometheus
+## Features
+- **Powerful Visualization Options**:  
+  - Interactive and customizable dashboards.  
+  - Supports graphs, tables, heatmaps, and more.  
 
-sudo nano /etc/prometheus/prometheus.yml
-sudo bash -c 'cat > /etc/prometheus/prometheus.yml <<EOF
-global:
-  scrape_interval: 15s
-  evaluation_interval: 15s
+- **Multiple Data Source Integration**:  
+  - Connects to Prometheus, InfluxDB, Elasticsearch, MySQL, etc.  
 
-scrape_configs:
-  - job_name: 'prometheus'
-    static_configs:
-      - targets: ['localhost:9090']
+- **Alerting System**:  
+  - Set alerts based on query thresholds.  
+  - Receive notifications via email, Slack, or other integrations.  
 
-  - job_name: 'node'
-    static_configs:
-      - targets: ['localhost:9100']  # Adjust the target to your node exporter 
-EOF'
+- **User Management & Sharing**:  
+  - Secure user authentication and role-based access.  
+  - Easily share dashboards and reports.
 
-sudo nano /etc/systemd/system/prometheus.service
-sudo bash -c 'cat > /etc/systemd/system/prometheus.service <<EOF
-[Unit]
-Description=Prometheus
-Wants=network-online.target
-After=network-online.target
 
-[Service]
-User=prometheus
-Group=prometheus
-Type=simple
-ExecStart=/usr/local/bin/prometheus \
- --config.file /etc/prometheus/prometheus.yml \
- --storage.tsdb.path /var/lib/prometheus/ \
- --web.console.templates=/etc/prometheus/consoles \
- --web.console.libraries=/etc/prometheus/console_libraries
+- Dashboards pull data using flexible query languages like `PromQL` (Prometheus).
 
-[Install]
-WantedBy=multi-user.target
-EOF'
+## Grafana Installation & Configuration on Linux
+- Follow the official [Grafana Installation Guide](https://grafana.com/docs/grafana/latest/installation/).
 
-sudo systemctl daemon-reload
-sudo systemctl enable prometheus
-sudo systemctl start prometheus
-sudo systemctl status prometheus
-```
-
-## Node Exporter installation on Linux
-- This expose the metrics of the Linux machine on "IP:9100/metrics"
-
-```bash
-sudo wget https://github.com/prometheus/node_exporter/releases/download/v1.7.0/node_exporter-1.7.0.linux-amd64.tar.gz
-sudo tar xzf node_exporter-1.7.0.linux-amd64.tar.gz
-
-# Remove node_exporter-1.7.0.linux-amd64.tar.gz
-sudo rm -rf node_exporter-1.7.0.linux-amd64.tar.gz
-sudo mv node_exporter-1.7.0.linux-amd64 /etc/node_exporter
-
-# Create service
-sudo bash -c 'cat > /etc/systemd/system/node_exporter.service <<EOF
-[Unit]
-Description=Node Exporter
-Wants=network-online.target
-After=network-online.target
-
-[Service]
-ExecStart=/etc/node_exporter/node_exporter
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-EOF'
-
-# Start the service
-sudo systemctl daemon-reload
-sudo systemctl enable node_exporter
-sudo systemctl restart node_exporter
-sudo systemctl status node_exporter
-```
-
-## Grafana installation
-- This expose the Grafana Dashboard "IP:3000"
-
+### Grafana installation
 ```bash
 # Install needed packages
 sudo apt-get install -y apt-transport-https software-properties-common wget
@@ -121,3 +54,19 @@ sudo systemctl start grafana-server
 sudo systemctl enable grafana-server
 sudo systemctl status grafana-server
 ```
+
+
+## Grafana on Docker
+- Use the following command to run Grafana in Docker:  
+```bash
+docker build -t custom-grafana .
+docker run -d -p 3000:3000 --name=grafana custom-grafana
+```
+
+
+## Access Grafana
+- This expose the Grafana Dashboard "IP:3000"
+- Default Username: admin
+- Default Password: admin
+
+
