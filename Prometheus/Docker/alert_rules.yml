@@ -1,0 +1,15 @@
+groups:
+  - name: target-down-alerts
+    rules:
+      - alert: TargetDown
+        expr: up == 0
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Target Down"
+          description: "The target {{ $labels.instance }} has been down for more tha>
+
+
+
+
